@@ -1,0 +1,78 @@
+/* Filename:  readtext.cpp
+
+   Author:  Br. David Carlson
+
+   Date:  February 1, 1998
+
+   Last Revised:  February 21, 2013
+
+   This program prompts the user for the name of a text file to read.
+   It then displays the file's contents on the screen.
+
+   Tested with:
+      Microsoft Visual C++ 2008
+      g++ under Linux
+*/
+
+#include <iostream>
+#include <fstream>   // needed for files
+using namespace std;
+
+const int MaxString = 120;
+typedef char StringType[MaxString];
+
+void DisplayFile(fstream & InFile);
+
+
+/* Given:   InFile   A file stream already opened for input.
+   Assumes: That InFile is associated with a text file.
+   Task:    To display on screen the contents of the file.
+   Return:  InFile   The modified file stream.
+*/
+void DisplayFile(fstream & InFile)
+   {
+   StringType Line;
+   int LineCount = 0;
+
+   InFile.getline(Line, MaxString);
+
+   while (! InFile.fail())
+      {
+      cout << Line << endl;
+      LineCount++;
+      if (LineCount == 22)
+         {
+         LineCount = 0;
+         cout << "   Press ENTER to go on...";
+         cin.get();
+         }
+      InFile.getline(Line, MaxString);
+      }
+
+   if (LineCount != 0)
+      {
+      cout << "   Press ENTER to go on...";
+      cin.get();
+      }
+   }
+
+
+int main(void)
+   {
+   StringType FileName;
+   fstream InFile;
+
+   cout << "Enter the name of the text file to be read: ";
+   cin.getline(FileName, MaxString);
+
+   InFile.open(FileName, ios::in);
+   if (InFile.fail())
+      {
+      cerr << "Could not open file " << FileName << endl;
+      exit(1);
+      }
+
+   DisplayFile(InFile);
+   InFile.close();
+   return 0;
+   }
