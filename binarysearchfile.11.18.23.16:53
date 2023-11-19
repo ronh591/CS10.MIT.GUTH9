@@ -1,0 +1,36 @@
+bool SearchFile(fstream & EmpFile, EmployeeType & Employee, long & Location)
+   {
+   EmployeeType EmployeeTemp;
+   bool Found;
+   int CmpResult;
+   long Mid, Low, High, RecordSize;
+
+   Found = false;
+   Low = 0L;
+   // Go to the end of the file:
+   EmpFile.seekg(0L, ios::end);
+   RecordSize = sizeof(EmployeeTemp);
+   // Find the number of records and subtract 1 to get high index:
+   High = EmpFile.tellg() / RecordSize - 1L;
+
+   while ((! Found) && (Low <= High))
+      {
+      Mid = (Low + High) / 2;
+      Location = Mid * RecordSize;
+      EmpFile.seekg(Location, ios::beg);
+      EmpFile.read(reinterpret_cast <char *> (&EmployeeTemp), RecordSize);
+      CmpResult = EmpCompare(Employee, EmployeeTemp);
+
+      if (CmpResult == 0)
+         {
+         Employee = EmployeeTemp;
+         Found = true;
+         }
+      else if (CmpResult < 0)
+         High = Mid - 1L;
+      else
+         Low = Mid + 1L;
+      }
+
+   return Found;
+   }
