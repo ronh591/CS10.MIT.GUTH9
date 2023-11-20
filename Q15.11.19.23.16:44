@@ -1,0 +1,17 @@
+#include < iostream >
+using namespace std;
+
+double division()
+{
+
+   int a, b;
+
+  std::cout << "Enter two numbers: ";
+
+  std::cin >> a >> b;
+   if( b == 0 )
+   {
+      cout << "Division by zero not allowed!";
+   }
+   return (a/b);
+}
