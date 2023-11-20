@@ -1,0 +1,3 @@
+ofstream myfile;
+myfile.open ("example.txt");
+myfile.close();
