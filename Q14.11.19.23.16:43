@@ -1,0 +1,9 @@
+string line;
+  ifstream myfile ("example.txt");
+  if (myfile.is_open())
+  {
+    __________________
+    myfile.close();
+  }
+
+  else cout << "Unable to open file"; 
