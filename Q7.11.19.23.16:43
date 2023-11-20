@@ -1,0 +1,15 @@
+int processFile () {
+  string line;
+  ifstream myfile ("example.txt");
+  if (myfile.is_open())
+  {
+    while ( getline (myfile,line) )
+    {
+      cout << line << '\n';
+    }
+    myfile.close();
+    return 1;
+  }
+  else  
+  return -1;
+}
